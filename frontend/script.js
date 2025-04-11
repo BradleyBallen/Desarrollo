@@ -67,3 +67,13 @@ function mostrarSeccionPrincipal() {
   // Muestra la sección principal directamente
   document.getElementById('seccionPrincipal').style.display = 'block';
 }
+
+function volverAtras() {
+  // Muestra formularios y botón ingresar
+  document.getElementById('adicionarEstudiante').parentElement.style.display = 'block';
+  document.getElementById('listarEstudiantes').parentElement.style.display = 'block';
+  document.getElementById('btnIngresarContainer').style.display = 'block';
+
+  // Oculta la sección principal
+  document.getElementById('seccionPrincipal').style.display = 'none';
+}
