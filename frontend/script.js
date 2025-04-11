@@ -58,3 +58,12 @@ function listar(){
       .catch((error) =>
         console.error(error));
 }
+
+function mostrarSeccionPrincipal() {
+  // Oculta los formularios
+  document.getElementById('adicionarEstudiante').parentElement.style.display = 'none';
+  document.getElementById('listarEstudiantes').parentElement.style.display = 'none';
+
+  // Muestra la sección principal
+  document.getElementById('seccionPrincipal').style.display = 'block';
+}
