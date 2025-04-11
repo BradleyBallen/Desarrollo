@@ -60,10 +60,29 @@ function listar(){
 }
 
 function mostrarSeccionPrincipal() {
-  // Oculta los formularios
+  // Oculta formularios y botón ingresar
   document.getElementById('adicionarEstudiante').parentElement.style.display = 'none';
   document.getElementById('listarEstudiantes').parentElement.style.display = 'none';
+  document.getElementById('btnIngresarContainer').style.display = 'none';
 
-  // Muestra la sección principal
-  document.getElementById('seccionPrincipal').style.display = 'block';
+  // Muestra la sección principal y carga contenido externo
+  const seccion = document.getElementById('seccionPrincipal');
+  seccion.style.display = 'block';
+
+  // Cargar contenido del panel desde archivo externo
+  fetch('./frontend/panelEstudiante.js')
+    .then(res => res.text())
+    .then(html => {
+      seccion.innerHTML = html;
+    });
+}
+
+function volverAtras() {
+  // Muestra formularios y botón ingresar
+  document.getElementById('adicionarEstudiante').parentElement.style.display = 'block';
+  document.getElementById('listarEstudiantes').parentElement.style.display = 'block';
+  document.getElementById('btnIngresarContainer').style.display = 'block';
+
+  // Oculta la sección principal
+  document.getElementById('seccionPrincipal').style.display = 'none';
 }
