@@ -1,44 +1,150 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<script type="text/javascript" src="./frontend/script.js"></script>
+  <meta charset="UTF-8">
+  <title>Gestión de Estudiantes</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Font Awesome para íconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Script JS personalizado -->
+  <script type="text/javascript" src="./frontend/script.js" defer></script>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #e3f2fd, #fce4ec);
+      background-attachment: fixed;
+      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Fondo con íconos educativos en baja opacidad */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-image: url('https://www.transparenttextures.com/patterns/cubes.png'), 
+                        url('https://cdn-icons-png.flaticon.com/512/3135/3135768.png'),
+                        url('https://cdn-icons-png.flaticon.com/512/4712/4712035.png');
+      background-size: 600px, 100px, 120px;
+      background-position: center center, 20% 30%, 80% 70%;
+      background-repeat: repeat, no-repeat, no-repeat;
+      opacity: 0.08;
+      z-index: -1;
+    }
+
+    .container-custom {
+      max-width: 800px;
+      margin-top: 60px;
+      margin-bottom: 60px;
+    }
+
+    .form-section {
+      background: #ffffffdd;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      margin-bottom: 40px;
+    }
+
+    .form-section h2 {
+      margin-bottom: 25px;
+      font-weight: 600;
+      color: #007bff;
+    }
+
+    .btn-custom {
+      width: 100%;
+    }
+
+    #rta {
+      background-color: #f1f1f1;
+      padding: 15px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .page-title {
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #2c3e50;
+      margin-bottom: 40px;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .page-title i {
+      color: #0d6efd;
+    }
+  </style>
 </head>
 <body>
 
-<h1>Adicionar</h1>
-<div>
+<div class="container container-custom">
+
+  <!-- Título principal -->
+  <div class="page-title">
+    <i class="fas fa-laptop-code me-2"></i>
+    Bienvenido a nuestro Entorno Virtual de Aprendizaje
+  </div>
+
+  <!-- Adicionar sección -->
+  <div class="form-section">
+    <h2><i class="fas fa-user-plus me-2"></i>Registrar un nuevo usuario</h2>
     <form id="adicionarEstudiante">
-        <div>
-            <label for="dni">Documento de identidad del estudiante:</label>
-            <input type="text" id="dni" placeHolder="" value="000000">
-            <br>
+      <div class="mb-3">
+        <label for="dni" class="form-label">Documento de Identidad</label>
+        <input type="text" id="dni" class="form-control" placeholder="Ej: 12345678" value="000000">
+      </div>
 
-            <label for="nombre">Nombres:</label>
-            <input type="text" id="nombre" placeHolder="">
-            <br>
+      <div class="mb-3">
+        <label for="nombre" class="form-label">Nombres</label>
+        <input type="text" id="nombre" class="form-control" placeholder="Ej: Juan">
+      </div>
 
-            <label for="apellidos">Apellidos:</label>
-            <input type="text" id="apellidos" placeHolder="">
-            <br>
+      <div class="mb-3">
+        <label for="apellidos" class="form-label">Apellidos</label>
+        <input type="text" id="apellidos" class="form-control" placeholder="Ej: Pérez">
+      </div>
 
-            <label for="correo">Email:</label>
-            <input type="text" id="correo" placeHolder="" value="">
-            <br>
-            <br>
-            <br>
-            <input type="submit" onclick="guardar()" value="Aceptar">
-        </div>
+      <div class="mb-3">
+        <label for="correo" class="form-label">Correo Electrónico</label>
+        <input type="text" id="correo" class="form-control" placeholder="Ej: juan@example.com">
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-custom" onclick="guardar()">
+        <i class="fas fa-check-circle me-2"></i>Aceptar
+      </button>
     </form>
+  </div>
 
-</div>
-<h1>Listar</h1>
-<div>
+  <!-- Listar sección -->
+  <div class="form-section">
+    <h2><i class="fas fa-list me-2"></i>Mostar todos los usuarios registrados</h2>
     <form id="listarEstudiantes">
+      <div class="mb-3">
         <p id="rta">Resultado:</p>
-        <input type="submit" onclick="listar()" value="Aceptar">
+      </div>
+      <button type="submit" class="btn btn-success btn-custom" onclick="listar()">
+        <i class="fas fa-search me-2"></i>Mostrar
+      </button>
     </form>
+  </div>
+
 </div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
