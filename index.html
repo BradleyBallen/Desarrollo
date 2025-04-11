@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript" src="./frontend/script.js"></script>
+</head>
+<body>
+
+<h1>Adicionar</h1>
+<div>
+    <form id="adicionarEstudiante">
+        <div>
+            <label for="dni">Documento de identidad del estudiante:</label>
+            <input type="text" id="dni" placeHolder="" value="000000">
+            <br>
+
+            <label for="nombre">Nombres:</label>
+            <input type="text" id="nombre" placeHolder="">
+            <br>
+
+            <label for="apellidos">Apellidos:</label>
+            <input type="text" id="apellidos" placeHolder="">
+            <br>
+
+            <label for="correo">Email:</label>
+            <input type="text" id="correo" placeHolder="" value="">
+            <br>
+            <br>
+            <br>
+            <input type="submit" onclick="guardar()" value="Aceptar">
+        </div>
+    </form>
+
+</div>
+<h1>Listar</h1>
+<div>
+    <form id="listarEstudiantes">
+        <p id="rta">Resultado:</p>
+        <input type="submit" onclick="listar()" value="Aceptar">
+    </form>
+</div>
+
+</body>
+</html>
