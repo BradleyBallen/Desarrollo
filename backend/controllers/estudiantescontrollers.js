@@ -13,7 +13,7 @@ class EstudiantesController{
     consultar(req,res){
         try{
             let arreglo=[];
-            let myObj = {dni: "1234", nombre: "Juan", apellidos: "Perez", email:"ejemplo@nose.com"};
+            let myObj = {dni: "1", nombre: "Juan", apellidos: "Perez", email:"ejemplo@nose.com"};
             let myObj2 = {dni: "2", nombre: "J2uan", apellidos: "222Perez", email:"222ejemplo@nose.com"};
 
             arreglo.push (myObj);

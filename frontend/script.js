@@ -1,3 +1,4 @@
+
 function guardar(){
 
     let apellidos='';
@@ -21,7 +22,7 @@ function guardar(){
       redirect: "follow"
     };
 
-    fetch("https://ejemplodedsws.netlify.app/.netlify/functions/estudiantes", requestOptions)
+    fetch("https://lustrous-centaur-30ba4f.netlify.app/.netlify/functions/estudiantes", requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result))
       .catch((error) => console.error(error));
@@ -50,7 +51,7 @@ function listar(){
       method: "GET",
       redirect: "follow"
     };
-    fetch("https://ejemplodedsws.netlify.app/.netlify/functions/estudiantes", requestOptions)
+    fetch("https://lustrous-centaur-30ba4f.netlify.app/.netlify/functions/estudiantes", requestOptions)
       .then((response) =>
         response.text())
       .then((result) =>
@@ -77,3 +78,5 @@ function volverAtras() {
   // Oculta la sección principal
   document.getElementById('seccionPrincipal').style.display = 'none';
 }
+
+
