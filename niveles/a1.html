@@ -10,13 +10,10 @@
 
   <div class="container py-5">
     <a href="javascript:history.back()" class="btn btn-outline-secondary mb-4">
-        <i class="fas fa-arrow-left me-2"></i>Volver a Niveles
-      </a>
-      
-      
-      
+      <i class="fas fa-arrow-left me-2"></i>Volver a Niveles
+    </a>
 
-    <div class="card shadow-lg">
+    <div class="card shadow-lg mb-4">
       <div class="card-body">
         <h2 class="card-title text-primary"><i class="fas fa-seedling me-2"></i> Inglés Nivel A1</h2>
         <p class="card-text mt-3">En este nivel aprenderás:</p>
@@ -31,7 +28,26 @@
         <p>¡Ideal para principiantes que recién comienzan su camino en el idioma!</p>
       </div>
     </div>
+
+    <!-- Sección de chat con Gemini -->
+    <div class="card shadow-lg">
+      <div class="card-header bg-primary text-white">
+        <i class="fas fa-robot me-2"></i>Asistente de Inglés con Gemini
+      </div>
+      <div class="card-body">
+        <div id="chat-container" style="height: 300px; overflow-y: auto; margin-bottom: 20px; border: 1px solid #eee; padding: 10px; border-radius: 5px;">
+          <!-- Los mensajes del chat aparecerán aquí -->
+        </div>
+        <div class="input-group">
+          <input type="text" id="user-input" class="form-control" placeholder="Escribe tu pregunta sobre inglés A1..." aria-label="Escribe tu mensaje">
+          <button class="btn btn-primary" type="button" id="send-button">
+            <i class="fas fa-paper-plane"></i> Enviar
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 
+  <script src="js/gemini-chat.js"></script>
 </body>
 </html>
