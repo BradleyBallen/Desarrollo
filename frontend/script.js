@@ -1,82 +1,59 @@
+// Elementos del DOM para fácil acceso
+let loginContainer, loginSection, seccionPrincipal, loginError, pageTitleContainer;
 
-function guardar(){
+document.addEventListener('DOMContentLoaded', () => {
+    
+    loginContainer = document.getElementById('loginContainer');
+    loginSection = document.getElementById('loginSection'); 
+    seccionPrincipal = document.getElementById('seccionPrincipal');
+    loginError = document.getElementById('loginError');
+    pageTitleContainer = document.getElementById('pageTitleContainer');
 
-    let apellidos='';
-    let datoingresado = document.getElementById("correo").value;
-
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    event.preventDefault();
-
-    let raw = JSON.stringify({
-      "dni": document.getElementById("dni").value,
-      "nombre": document.getElementById("nombre").value,
-      "apellidos": document.getElementById("apellidos").value,
-      "email": document.getElementById("correo").value
-    });
-
-    let requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow"
-    };
-
-    fetch("https://learn-english-789456.netlify.app/.netlify/functions/estudiantes", requestOptions)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.error(error));
-}
-
-//Ejemplo cuando se devuelve algo
-function cargar(resultado){
-    let transformado = JSON.parse(resultado);
-    var salida="";
-    var elemento="";
-
-
-    for (let vc in transformado){
-        elemento =  "<br>DI: " + transformado[vc].dni;
-        elemento = elemento + "<br>Nombres y apellidos: " + transformado[vc].nombre + " " + transformado[vc].apellidos;
-        elemento = elemento + "<br>Correo electrónico: " + transformado[vc].email;
-        salida = salida  + elemento + "<br><br>";
+    // Verificar si el usuario ya está "logeado" en esta sesión
+    if (sessionStorage.getItem('isLoggedIn') === 'true') {
+        
+        if (pageTitleContainer) pageTitleContainer.style.display = 'block';
+        if (loginContainer) loginContainer.style.display = 'none';
+        if (seccionPrincipal) seccionPrincipal.style.display = 'block';
+    } else {
+        
+        if (pageTitleContainer) pageTitleContainer.style.display = 'block';
+        if (loginContainer) loginContainer.style.display = 'flex'; 
+        if (seccionPrincipal) seccionPrincipal.style.display = 'none';
     }
+    if (loginError) loginError.style.display = 'none'; 
+});
 
-    document.getElementById("rta").innerHTML = salida;
+function procesarLogin() {
+  const usuarioInput = document.getElementById('loginUsuario').value;
+  const contrasenaInput = document.getElementById('loginContrasena').value;
+
+  const usuariosValidos = {
+      "bradley": "bradley123",
+      "user": "user123"
+  };
+
+  if (usuariosValidos[usuarioInput] && usuariosValidos[usuarioInput] === contrasenaInput) {
+    // Login exitoso
+    sessionStorage.setItem('isLoggedIn', 'true'); 
+
+    if (pageTitleContainer) pageTitleContainer.style.display = 'block'; 
+    if (loginContainer) loginContainer.style.display = 'none';
+    if (seccionPrincipal) seccionPrincipal.style.display = 'block';
+    if (loginError) loginError.style.display = 'none';
+    document.getElementById("loginForm").reset(); 
+  } else {
+    // Login fallido
+    sessionStorage.removeItem('isLoggedIn'); 
+    if (loginError) loginError.style.display = 'block';
+  }
 }
 
-function listar(){
-    event.preventDefault();
-    const requestOptions = {
-      method: "GET",
-      redirect: "follow"
-    };
-    fetch("https://learn-english-789456.netlify.app/.netlify/functions/estudiantes", requestOptions)
-      .then((response) =>
-        response.text())
-      .then((result) =>
-        cargar(result))
-      .catch((error) =>
-        console.error(error));
+function volverDesdePrincipal() {
+  sessionStorage.removeItem('isLoggedIn'); 
+
+  if (pageTitleContainer) pageTitleContainer.style.display = 'block';
+  if (loginContainer) loginContainer.style.display = 'flex';
+  if (seccionPrincipal) seccionPrincipal.style.display = 'none';
+  if (loginError) loginError.style.display = 'none';
 }
-function mostrarSeccionPrincipal() {
-  // Oculta formularios y botón ingresar
-  document.getElementById('adicionarEstudiante').parentElement.style.display = 'none';
-  document.getElementById('listarEstudiantes').parentElement.style.display = 'none';
-  document.getElementById('btnIngresarContainer').style.display = 'none';
-
-  // Muestra la sección principal directamente
-  document.getElementById('seccionPrincipal').style.display = 'block';
-}
-
-function volverAtras() {
-  // Muestra formularios y botón ingresar
-  document.getElementById('adicionarEstudiante').parentElement.style.display = 'block';
-  document.getElementById('listarEstudiantes').parentElement.style.display = 'block';
-  document.getElementById('btnIngresarContainer').style.display = 'block';
-
-  // Oculta la sección principal
-  document.getElementById('seccionPrincipal').style.display = 'none';
-}
-
-

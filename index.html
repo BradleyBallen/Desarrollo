@@ -2,15 +2,12 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Gestión de Estudiantes</title>
+  <title>Entorno Virtual de Aprendizaje</title>
 
-  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   
-  <!-- Font Awesome para íconos -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-  <!-- Script JS personalizado -->
   <script type="text/javascript" src="./frontend/script.js" defer></script>
 
   <style>
@@ -25,7 +22,6 @@
       overflow-x: hidden;
     }
 
-    /* Fondo con íconos educativoss en baja opacidad */
     body::before {
       content: "";
       position: absolute;
@@ -44,10 +40,19 @@
     }
 
     .container-custom {
-      max-width: 800px;
+      max-width: 800px; 
       margin-top: 60px;
       margin-bottom: 60px;
     }
+    
+    .login-container-custom { 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 80vh; /* Ajustar para centrar verticalmente */
+    }
+
 
     .form-section {
       background: #ffffffdd;
@@ -55,6 +60,8 @@
       border-radius: 15px;
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
       margin-bottom: 40px;
+      width: 100%; /* Asegura que tome el ancho del contenedor padre */
+      max-width: 500px; /* Un ancho máximo para el formulario de login en sí */
     }
 
     .form-section h2 {
@@ -65,13 +72,6 @@
 
     .btn-custom {
       width: 100%;
-    }
-
-    #rta {
-      background-color: #f1f1f1;
-      padding: 15px;
-      border-radius: 8px;
-      font-weight: bold;
     }
 
     .page-title {
@@ -92,85 +92,45 @@
 
 <div class="container container-custom">
 
-  <!-- Título principal -->
-  <div class="page-title">
+  <div id="pageTitleContainer" class="page-title">
     <i class="fas fa-laptop-code me-2"></i>
     Bienvenido a nuestro Entorno Virtual de Aprendizaje
   </div>
-
-  <!-- Adicionar sección -->
-  <div class="form-section">
-    <h2><i class="fas fa-user-plus me-2"></i>Registrar un nuevo usuario</h2>
-    <form id="adicionarEstudiante">
-      <div class="mb-3">
-        <label for="dni" class="form-label">Documento de Identidad</label>
-        <input type="text" id="dni" class="form-control" placeholder="Ej: 12345678" value=" ">
-      </div>
-
-      <div class="mb-3">
-        <label for="nombre" class="form-label">Nombres</label>
-        <input type="text" id="nombre" class="form-control" placeholder="Ej: Juan">
-      </div>
-
-      <div class="mb-3">
-        <label for="apellidos" class="form-label">Apellidos</label>
-        <input type="text" id="apellidos" class="form-control" placeholder="Ej: Pérez">
-      </div>
-
-      <div class="mb-3">
-        <label for="correo" class="form-label">Correo Electrónico</label>
-        <input type="text" id="correo" class="form-control" placeholder="Ej: juan@example.com">
-      </div>
-
-      <button type="submit" class="btn btn-primary btn-custom" onclick="guardar()">
-        <i class="fas fa-check-circle me-2"></i>Aceptar
-      </button>
-    </form>
-  </div>
-
-  <!-- Listar sección -->
-  <div class="form-section">
-    <h2><i class="fas fa-list me-2"></i>Mostar todos los usuarios registrados</h2>
-    <form id="listarEstudiantes">
-      <div class="mb-3">
-        <p id="rta">Resultado:</p>
-      </div>
-      <button type="submit" class="btn btn-success btn-custom" onclick="listar()">
-        <i class="fas fa-search me-2"></i>Mostrar
-      </button>
-    </form>
-  </div>
-
-</div>
-
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Botón Ingresar -->
-<div id="btnIngresarContainer" class="text-center mb-4">
-    <button class="btn btn-dark" onclick="mostrarSeccionPrincipal()">
-      <i class="fas fa-door-open me-2"></i>Ingresar
-    </button>
-  </div>
   
-  <div id="seccionPrincipal" class="form-section" style="display: none; position: relative;">
-  
-    <!-- Botón Volver arriba -->
+  <div id="loginContainer" class="login-container-custom">
+    <div id="loginSection" class="form-section"> <h2><i class="fas fa-sign-in-alt me-2"></i>Iniciar Sesión</h2>
+      <form id="loginForm">
+        <div class="mb-3">
+          <label for="loginUsuario" class="form-label">Usuario</label>
+          <input type="text" id="loginUsuario" class="form-control" placeholder="Tu usuario ">
+        </div>
+        <div class="mb-3">
+          <label for="loginContrasena" class="form-label">Contraseña</label>
+          <input type="password" id="loginContrasena" class="form-control" placeholder="Tu contraseña ">
+        </div>
+        <div class="mb-3" id="loginError" style="color: red; display: none;">
+          Usuario o contraseña incorrectos.
+        </div>
+        <button type="button" class="btn btn-primary btn-custom mb-2" onclick="procesarLogin()">
+          <i class="fas fa-check-circle me-2"></i>Iniciar Sesión
+        </button>
+        </form>
+    </div>
+  </div>
+
+  <div id="seccionPrincipal" class="form-section" style="display: none; position: relative; max-width: 800px;">
     <div class="text-start mb-4">
-      <button class="btn btn-outline-secondary" onclick="volverAtras()">
-        <i class="fas fa-arrow-left me-2"></i>Volver
+      <button class="btn btn-outline-secondary" onclick="volverDesdePrincipal()">
+        <i class="fas fa-arrow-left me-2"></i>Cerrar Sesión / Volver al Login
       </button>
     </div>
   
-    <!-- Encabezado del panel -->
     <div class="text-center mb-5">
       <h2><i class="fas fa-globe-americas me-2"></i> Aprende Inglés por Niveles</h2>
       <p class="text-muted">Selecciona el nivel que deseas comenzar a explorar.</p>
     </div>
   
-    <!-- Secciones por nivel -->
     <div class="row row-cols-1 row-cols-md-2 g-4">
-      
-      <!-- Nivel A1 -->
       <div class="col">
         <div class="card h-100 shadow-sm">
           <div class="card-body">
@@ -180,8 +140,6 @@
           </div>
         </div>
       </div>
-  
-      <!-- Nivel A2 -->
       <div class="col">
         <div class="card h-100 shadow-sm">
           <div class="card-body">
@@ -191,8 +149,6 @@
           </div>
         </div>
       </div>
-  
-      <!-- Nivel B1 -->
       <div class="col">
         <div class="card h-100 shadow-sm">
           <div class="card-body">
@@ -202,8 +158,6 @@
           </div>
         </div>
       </div>
-  
-      <!-- Nivel B2 -->
       <div class="col">
         <div class="card h-100 shadow-sm">
           <div class="card-body">
@@ -213,8 +167,6 @@
           </div>
         </div>
       </div>
-  
-      <!-- Nivel C1 -->
       <div class="col">
         <div class="card h-100 shadow-sm">
           <div class="card-body">
@@ -224,8 +176,6 @@
           </div>
         </div>
       </div>
-  
-      <!-- Nivel C2 -->
       <div class="col">
         <div class="card h-100 shadow-sm">
           <div class="card-body">
@@ -235,14 +185,11 @@
           </div>
         </div>
       </div>
-  
     </div>
   </div>
-  
-  
-  
 
-  </div>
+</div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
