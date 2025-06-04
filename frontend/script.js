@@ -22,7 +22,7 @@ function guardar(){
       redirect: "follow"
     };
 
-    fetch("https://lustrous-centaur-30ba4f.netlify.app/.netlify/functions/estudiantes", requestOptions)
+    fetch("https://learn-english-789456.netlify.app/.netlify/functions/estudiantes", requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result))
       .catch((error) => console.error(error));
@@ -51,7 +51,7 @@ function listar(){
       method: "GET",
       redirect: "follow"
     };
-    fetch("https://lustrous-centaur-30ba4f.netlify.app/.netlify/functions/estudiantes", requestOptions)
+    fetch("https://learn-english-789456.netlify.app/.netlify/functions/estudiantes", requestOptions)
       .then((response) =>
         response.text())
       .then((result) =>
