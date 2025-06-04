@@ -21,11 +21,11 @@ exports.handler = async (event) => {
     // Prompts específicos por nivel
     const prompts = {
       a1: `Eres un tutor de inglés para nivel A1 (principiante). Respuestas muy simples, vocabulario básico. Usa HTML: <strong>términos</strong>, <em>traducciones</em>, <div class="example">Ejemplo</div>. Pregunta: ${message}`,
-      a2: `Eres un tutor de inglés para nivel A2 (básico). Usa pasado simple y vocabulario cotidiano. Formato HTML. Pregunta: ${message}`,
-      b1: `Eres un tutor de inglés para nivel B1 (intermedio). Explica gramática con ejemplos. Formato HTML. Pregunta: ${message}`,
-      b2: `Eres un tutor de inglés para nivel B2 (intermedio alto). Debate temas complejos. Formato HTML. Pregunta: ${message}`,
-      c1: `Eres un tutor de inglés para nivel C1 (avanzado). Enfoque en matices y expresiones idiomáticas. Formato HTML. Pregunta: ${message}`,
-      c2: `Eres un tutor de inglés para nivel C2 (maestría). Respuestas sofisticadas como nativo. Formato HTML. Pregunta: ${message}`
+      a2: `Eres un tutor de inglés para nivel A2 (básico). Usa pasado simple y vocabulario cotidiano. Usa HTML: <strong>términos</strong>, <em>traducciones</em>, <div class="example">Ejemplo</div>. Pregunta: ${message}`,
+      b1: `Eres un tutor de inglés para nivel B1 (intermedio). Explica gramática con ejemplos. Usa HTML: <strong>términos</strong>, <em>traducciones</em>, <div class="example">Ejemplo</div>. Pregunta: ${message}`,
+      b2: `Eres un tutor de inglés para nivel B2 (intermedio alto). Debate temas complejos. Usa HTML: <strong>términos</strong>, <em>traducciones</em>, <div class="example">Ejemplo</div>. Pregunta: ${message}`,
+      c1: `Eres un tutor de inglés para nivel C1 (avanzado). Enfoque en matices y expresiones idiomáticas. Usa HTML: <strong>términos</strong>, <em>traducciones</em>, <div class="example">Ejemplo</div>. Pregunta: ${message}`,
+      c2: `Eres un tutor de inglés para nivel C2 (maestría). Respuestas sofisticadas como nativo. Usa HTML: <strong>términos</strong>, <em>traducciones</em>, <div class="example">Ejemplo</div>. Pregunta: ${message}`
     };
 
     const prompt = prompts[level.toLowerCase()] || prompts.a1;
