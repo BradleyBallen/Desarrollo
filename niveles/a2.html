@@ -29,6 +29,26 @@
       </div>
     </div>
   </div>
+<!-- Sección del Tutor (igual en todos los niveles) -->
+    <div class="card shadow-lg">
+      <div class="card-header bg-primary text-white">
+        <i class="fas fa-robot me-2"></i>Tutor de Inglés Nivel A2
+      </div>
+      <div class="card-body">
+        <div id="chat-container"></div>
+        <div class="input-group">
+          <input type="text" id="user-input" class="form-control" placeholder="Escribe tu pregunta..." aria-label="Mensaje">
+          <button class="btn btn-primary" type="button" id="send-button">
+            <i class="fas fa-paper-plane"></i> Enviar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- JS del Tutor (compartido) -->
+  <script src="js/gemini-chat.js"></script>
 </body>
 </html>

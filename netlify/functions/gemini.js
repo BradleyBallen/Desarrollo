@@ -1,86 +1,47 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-// Versión mejorada con manejo de errores robusto y validaciones
 exports.handler = async (event) => {
-  // Validar método HTTP
   if (event.httpMethod !== 'POST') {
-    return {
-      statusCode: 405,
-      body: JSON.stringify({ error: 'Método no permitido. Use POST' })
-    };
+    return { statusCode: 405, body: JSON.stringify({ error: 'Método no permitido' }) };
   }
 
   try {
-    // Parsear y validar el cuerpo de la solicitud
-    const { message } = JSON.parse(event.body);
+    const { message, level } = JSON.parse(event.body);
     
-    if (!message || typeof message !== 'string') {
+    if (!message || !level) {
       return {
         statusCode: 400,
-        body: JSON.stringify({ error: 'El campo "message" es requerido y debe ser texto' })
+        body: JSON.stringify({ error: 'Faltan campos requeridos: message o level' })
       };
     }
 
-    // Configurar modelo Gemini
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ 
-      model: "gemini-2.0-flash",
-      generationConfig: {
-        temperature: 0.7, // Controla la creatividad (0-1)
-        maxOutputTokens: 1000 // Limita la longitud de la respuesta
-      }
-    });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
-    // Prompt mejor estructurado
-    const prompt = `
-      Eres un tutor de inglés para principiantes (nivel A1). Sigue estas reglas:
-      1. Responde en español claro y simple
-      2. Usa este formato:
-         - <strong>para términos clave</strong>
-         - <em>para palabras en inglés</em>
-         - <div class="example">Ejemplo: contenido</div> para ejemplos
-      3. No uses markdown (*, **, etc.)
-      4. Mantén respuestas breves (máx. 3 párrafos)
-      5. Sé paciente y alentador
-      
-      Pregunta del estudiante: ${message}
-    `;
+    // Prompts específicos por nivel
+    const prompts = {
+      a1: `Eres un tutor de inglés para nivel A1 (principiante). Respuestas muy simples, vocabulario básico. Usa HTML: <strong>términos</strong>, <em>traducciones</em>, <div class="example">Ejemplo</div>. Pregunta: ${message}`,
+      a2: `Eres un tutor de inglés para nivel A2 (básico). Usa pasado simple y vocabulario cotidiano. Formato HTML. Pregunta: ${message}`,
+      b1: `Eres un tutor de inglés para nivel B1 (intermedio). Explica gramática con ejemplos. Formato HTML. Pregunta: ${message}`,
+      b2: `Eres un tutor de inglés para nivel B2 (intermedio alto). Debate temas complejos. Formato HTML. Pregunta: ${message}`,
+      c1: `Eres un tutor de inglés para nivel C1 (avanzado). Enfoque en matices y expresiones idiomáticas. Formato HTML. Pregunta: ${message}`,
+      c2: `Eres un tutor de inglés para nivel C2 (maestría). Respuestas sofisticadas como nativo. Formato HTML. Pregunta: ${message}`
+    };
 
-    // Generar contenido
+    const prompt = prompts[level.toLowerCase()] || prompts.a1;
+
     const result = await model.generateContent(prompt);
     const response = await result.response;
-    
-    // Validar y limpiar respuesta
-    if (!response || !response.text) {
-      throw new Error('Respuesta inesperada de la API Gemini');
-    }
-    
-    const text = response.text().trim();
+    const text = response.text();
 
     return {
       statusCode: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Cache-Control': 'no-cache' // Para respuestas siempre frescas
-      },
-      body: JSON.stringify({ 
-        response: text,
-        metadata: {
-          model: "gemini-2.0-flash",
-          tokens: response.usageMetadata?.totalTokenCount || 'desconocido'
-        }
-      })
+      body: JSON.stringify({ response: text })
     };
-
   } catch (error) {
-    console.error('Error en la función Gemini:', error);
-    
     return {
       statusCode: 500,
-      body: JSON.stringify({ 
-        error: 'Error al procesar tu solicitud',
-        details: process.env.NODE_ENV === 'development' ? error.message : null
-      })
+      body: JSON.stringify({ error: error.message })
     };
   }
 };
